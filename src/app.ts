@@ -1,20 +1,22 @@
 import express, { Express } from 'express';
 import { Server } from 'http';
-import mongoose from 'mongoose';
-import { taskController } from './controllers/taskController';
+import { inject, injectable } from 'inversify';
+import { TaskController } from './controllers/task.controller';
+import { MongooseService } from './database/mongoose.service';
+import { ILogger } from './logger/logger.service.interface';
+import { TYPES } from './types';
 
-async function main() {
-	
-	console.log('Connected to MongoDB');
-}
-main().catch(err => console.log(err));
-
+@injectable()
 export class App {
 	app: Express;
 	port: number;
 	server: Server;
 
-	constructor() {
+	constructor(
+		@inject(TYPES.ILogger) private logger: ILogger,
+		@inject(TYPES.MongooseService) private mongooseService: MongooseService,
+		@inject(TYPES.TaskController) private taskController: TaskController,
+	) {
 		this.app = express();
 		this.port = 3000;
 	}
@@ -24,17 +26,23 @@ export class App {
 	}
 
 	useRoutes(): void {
-		this.app.post('/tasks', taskController.createTask);
-		this.app.get('/tasks', taskController.getAllTasks);
+		this.app.use('/', this.taskController.router);
 	}
 
 	public async init(): Promise<void> {
 		this.useMiddleware();
 		this.useRoutes();
 		this.app.listen(this.port, () => {
-			console.log(`Example app listening on port ${this.port}`);
+			this.logger.log(`[App] ✅ Server is running on port ${this.port}`);
 		});
-		await mongoose.connect('mongodb://127.0.0.1:27017/crud-mongo');
+
+		try {
+			await this.mongooseService.connect('mongodb://127.0.0.1:27017/crud-mongo');
+		} catch (err) {
+			this.logger.error(`[App] ❌ Cannot connect to database`);
+			this.logger.error(err);
+			process.exit(1);
+		}
 	}
 
 	public close(): void {

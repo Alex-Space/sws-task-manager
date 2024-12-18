@@ -1,8 +1,13 @@
-import mongoose from 'mongoose';
+import mongoose, { Document } from 'mongoose';
 
-const taskSchema = new mongoose.Schema({
-  title: { type: String, required: true },
-  completed: { type: Boolean, default: false },
+export interface ITask extends Document {
+	title: string;
+	completed: boolean;
+}
+
+const taskSchema = new mongoose.Schema<ITask>({
+	title: { type: String, required: true },
+	completed: { type: Boolean, default: false },
 });
 
-export const Task = mongoose.model('Task', taskSchema);
+export const Task = mongoose.model<ITask>('Task', taskSchema);
