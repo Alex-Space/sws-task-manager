@@ -21,7 +21,7 @@ export class App {
 		this.port = 3000;
 	}
 
-	useMiddleware() {
+	useMiddleware(): void {
 		this.app.use(express.json());
 	}
 

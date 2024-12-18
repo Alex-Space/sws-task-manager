@@ -1,12 +1,14 @@
 {
-	"name": "crud-mongo",
+	"name": "sws-task-manager",
 	"version": "1.0.0",
-	"description": "",
-	"main": "main.js",
+	"description": "App for managing tasks",
+	"main": "server/main.js",
 	"type": "commonjs",
 	"scripts": {
-		"start": "node ./dist/main.js",
-		"dev": "nodemon"
+		"start": "node ./server/dist/main.js",
+		"dev": "nodemon",
+		"lint": "eslint ./server/src/** ./client/src/**",
+		"lint:fix": "eslint ./server/src/** ./client/src/** --fix"
 	},
 	"keywords": [],
 	"author": "",
@@ -20,6 +22,12 @@
 	"devDependencies": {
 		"@types/express": "^5.0.0",
 		"@types/node": "^22.10.2",
+		"@typescript-eslint/eslint-plugin": "^8.18.1",
+		"@typescript-eslint/parser": "^8.18.1",
+		"eslint": "^8.57.1",
+		"eslint-config-prettier": "^9.1.0",
+		"eslint-plugin-prettier": "^5.2.1",
+		"prettier": "^3.4.2",
 		"ts-node": "^10.9.2",
 		"typescript": "^5.7.2"
 	}

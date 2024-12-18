@@ -16,6 +16,7 @@ module.exports = {
 	},
 	plugins: ['@typescript-eslint', 'prettier'],
 	rules: {
+		'no-var': 'error',
 		'@typescript-eslint/no-empty-interface': 0,
 		'@typescript-eslint/no-unused-vars': ['off'],
 		'@typescript-eslint/ban-types': 'off',
