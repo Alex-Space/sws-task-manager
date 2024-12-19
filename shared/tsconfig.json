@@ -1,0 +1,16 @@
+{
+	"compilerOptions": {
+		"outDir": "dist", // Указывает папку для вывода файлов
+		"declaration": true, // Генерирует .d.ts файлы
+		"declarationDir": "dist", // Помещает .d.ts в ту же папку
+		"module": "ESNext", // Использует ESM
+		"moduleResolution": "Node", // Для правильной обработки модулей
+		"target": "ESNext", // Указывает современный стандарт JavaScript
+		"esModuleInterop": true, // Для работы с CommonJS
+		"strict": true, // Включает строгий режим
+		"skipLibCheck": true, // Ускоряет компиляцию
+		"rootDir": "src" // Указывает корневую папку исходников
+	},
+	"include": ["src"], // Компилирует только файлы из src/
+	"exclude": ["node_modules", "dist"] // Исключает лишние папки
+}

@@ -1,6 +1,0 @@
-./node_modules
-./vscode
-./pre
-.prettierignore
-.prettierrc
-.eslintrc.js

@@ -1,3 +1,4 @@
+import cors from 'cors';
 import express, { Express } from 'express';
 import { Server } from 'http';
 import { inject, injectable } from 'inversify';
@@ -23,6 +24,13 @@ export class App {
 
 	useMiddleware(): void {
 		this.app.use(express.json());
+		this.app.use(
+			cors({
+				origin: 'http://localhost:5173',
+				methods: ['GET', 'POST', 'PUT', 'DELETE'],
+				allowedHeaders: ['Content-Type', 'Authorization'],
+			}),
+		);
 	}
 
 	useRoutes(): void {
